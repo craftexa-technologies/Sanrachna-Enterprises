@@ -1,0 +1,239 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Industrial Construction Theme - Premium Blood Red & Deep Black */
+
+@layer base {
+  :root {
+    /* Light Mode - Clean Professional Look */
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    /* Blood red as primary accent - adjusted for light bg */
+    --primary: 0 72% 51%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 0 72% 51%;
+
+    --radius: 0.5rem;
+
+    /* Custom construction colors */
+    --construction-yellow: 45 100% 51%;
+    --construction-red: 0 65% 40%;
+    --steel-gray: 215 16% 47%;
+    --concrete: 210 20% 98%;
+    --dark-steel: 222 47% 11%;
+  }
+
+  .dark {
+    /* Industrial Construction Theme - Premium Blood Red & Deep Black */
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 0 72% 51%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 0 72% 51%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+  }
+
+  .bg-texture {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+  }
+
+  .diagonal-stripes {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 10px,
+      hsl(0 65% 40% / 0.1) 10px,
+      hsl(0 65% 40% / 0.1) 20px
+    );
+  }
+
+  /* Parallax utilities */
+  .parallax-container {
+    @apply overflow-hidden relative;
+  }
+
+  .parallax-element {
+    will-change: transform;
+    transition: transform 0.1s linear;
+  }
+
+  .parallax-slow {
+    transition: transform 0.15s ease-out;
+  }
+
+  /* Scroll Reveal Animations */
+  .reveal-fade-up,
+  .reveal-fade-down,
+  .reveal-fade-left,
+  .reveal-fade-right,
+  .reveal-scale {
+    opacity: 0;
+    transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .reveal-fade-up {
+    transform: translateY(40px);
+  }
+
+  .reveal-fade-down {
+    transform: translateY(-40px);
+  }
+
+  .reveal-fade-left {
+    transform: translateX(-40px);
+  }
+
+  .reveal-fade-right {
+    transform: translateX(40px);
+  }
+
+  .reveal-scale {
+    transform: scale(0.9);
+  }
+
+  .reveal-visible {
+    opacity: 1;
+    transform: translateY(0) translateX(0) scale(1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-fade-up,
+    .reveal-fade-down,
+    .reveal-fade-left,
+    .reveal-fade-right,
+    .reveal-scale {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  /* Blood Red Glow Effects */
+  .glow-red {
+    box-shadow: 0 0 20px hsl(0 65% 40% / 0.3),
+                0 0 40px hsl(0 65% 40% / 0.1);
+  }
+
+  .glow-red-subtle {
+    box-shadow: 0 0 15px hsl(0 65% 40% / 0.2);
+  }
+
+  .text-glow {
+    text-shadow: 0 0 20px hsl(0 65% 40% / 0.5);
+  }
+
+  .hover-glow {
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+
+  .hover-glow:hover {
+    box-shadow: 0 0 25px hsl(0 65% 40% / 0.4);
+    transform: translateY(-2px);
+  }
+
+  /* Pulse glow animation */
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px hsl(0 65% 40% / 0.3); }
+    50% { box-shadow: 0 0 35px hsl(0 65% 40% / 0.5); }
+  }
+
+  .pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  /* Construction Block Stacking Animation */
+  @keyframes block-stack {
+    0%, 20% {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    40%, 100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .construction-block-1 {
+    animation: block-stack 1.2s ease-out infinite;
+    animation-delay: 0s;
+  }
+
+  .construction-block-2 {
+    animation: block-stack 1.2s ease-out infinite;
+    animation-delay: 0.2s;
+  }
+
+  .construction-block-3 {
+    animation: block-stack 1.2s ease-out infinite;
+    animation-delay: 0.4s;
+  }
+}

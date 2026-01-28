@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sanrachna Enterprises - Quality Construction Services in Pune</title>
+    <meta name="description" content="Sanrachna Enterprises - Your trusted partner for quality construction in Pune. Building excellence with dedication since 1995." />
+    <meta name="author" content="Sanrachna Enterprises" />
+
+    <meta property="og:title" content="Sanrachna Enterprises - Quality Construction Services" />
+    <meta property="og:description" content="Your trusted partner for quality construction in Pune. Building excellence with dedication since 1995." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@SanrachnaEnt" />
+      <meta property="og:image" content="src/assets/sanrachna-logo.jpg" />
+      <meta name="twitter:image" content="src/assets/sanrachna-logo.jpg" />
+    
+      <script type="module">
+        import sanrachnaLogo from '/src/assets/sanrachna-logo.jpg';
+
+        // Create a square favicon by drawing the logo into a canvas
+        async function setSquareFavicon(srcUrl, size = 128) {
+          try {
+            const img = new Image();
+            img.crossOrigin = 'anonymous';
+            img.src = srcUrl;
+            await img.decode();
+
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+            if (!ctx) throw new Error('No canvas context');
+
+            // Fill transparent background
+            ctx.clearRect(0, 0, size, size);
+
+            // Fit image inside square while preserving aspect ratio
+            const ratio = Math.min(size / img.width, size / img.height);
+            const drawW = img.width * ratio;
+            const drawH = img.height * ratio;
+            const dx = (size - drawW) / 2;
+            const dy = (size - drawH) / 2;
+            ctx.drawImage(img, dx, dy, drawW, drawH);
+
+            const dataUrl = canvas.toDataURL('image/png');
+
+            let link = document.querySelector("link[rel~='icon']");
+            if (!link) {
+              link = document.createElement('link');
+              link.rel = 'icon';
+              document.head.appendChild(link);
+            }
+            link.href = dataUrl;
+
+            // Helper to create/update meta tags
+            const ensureMeta = (attrName, attrValue, isProperty = false) => {
+              const selector = isProperty ? `meta[property="${attrName}"]` : `meta[name="${attrName}"]`;
+              let m = document.querySelector(selector);
+              if (!m) {
+                m = document.createElement('meta');
+                if (isProperty) m.setAttribute('property', attrName); else m.setAttribute('name', attrName);
+                document.head.appendChild(m);
+              }
+              m.content = attrValue;
+            };
+
+            ensureMeta('og:image', dataUrl, true);
+            ensureMeta('twitter:image', dataUrl, false);
+          } catch (e) {
+            // Fallback: use the original URL as favicon
+            const fallback = document.createElement('link');
+            fallback.rel = 'icon';
+            fallback.href = sanrachnaLogo;
+            document.head.appendChild(fallback);
+          }
+        }
+
+        setSquareFavicon(sanrachnaLogo, 128);
+      </script>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

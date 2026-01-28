@@ -1,0 +1,14 @@
+/* App-specific styles - most styling is handled via Tailwind */
+
+/* Smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Remove default margins and padding from root */
+#root {
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  max-width: none;
+}
