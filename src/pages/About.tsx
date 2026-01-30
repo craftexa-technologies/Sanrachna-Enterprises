@@ -55,7 +55,7 @@ const About = () => {
               Building Stronger Communities & High-Quality Urban Lives
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Sanrachna Enterprises has been transforming visions into reality for nearly three decades. 
+              Sanrachana has been transforming visions into reality for nearly three decades. 
               We specialize in Machine Foundation work while providing comprehensive construction services 
               for Industrial, Commercial, and Residential projects.
             </p>
@@ -78,7 +78,7 @@ const About = () => {
                     Commercial, Residential, and Machine Foundation construction.
                   </p>
                   <p>
-                    Sanrachna Enterprises conducts a thorough site visit before starting any project. 
+                    Sanrachana conducts a thorough site visit before starting any project. 
                     This helps in analyzing the site conditions, studying risk factors, and 
                     providing accurate cost estimations.
                   </p>
@@ -159,7 +159,7 @@ const About = () => {
             <div>
               <ScrollReveal animation="fade-up">
               <span className="text-primary font-semibold text-sm uppercase tracking-wider">
-                Why Sanrachna Enterprises
+                Why Sanrachana
               </span>
                 <h2 className="text-3xl md:text-4xl font-bold text-foreground mt-2 mb-6">
                   Why Choose Us?

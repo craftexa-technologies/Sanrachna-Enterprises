@@ -25,19 +25,35 @@ import g10 from "@/assets/gallery/g10.jpg";
 import g11 from "@/assets/gallery/g11.jpg";
 import g12 from "@/assets/gallery/g12.jpg";
 
+// New gallery images
+import img1 from "@/assets/gallery/1-7/one.jpeg";
+import img2 from "@/assets/gallery/1-7/two.jpeg";
+import img3 from "@/assets/gallery/1-7/three.jpeg";
+import img4 from "@/assets/gallery/1-7/four.jpeg";
+import img5 from "@/assets/gallery/1-7/five.jpeg";
+import img6 from "@/assets/gallery/1-7/six.jpeg";
+import img7 from "@/assets/gallery/1-7/seven.jpeg";
+
 const galleryImages = [
-  { src: g1, alt: "Sanrachna Enterprises Project 1" },
-  { src: g2, alt: "Sanrachna Enterprises Project 2" },
-  { src: g3, alt: "Sanrachna Enterprises Project 3" },
-  { src: g4, alt: "Sanrachna Enterprises Project 4" },
-  { src: g5, alt: "Sanrachna Enterprises Project 5" },
-  { src: g6, alt: "Sanrachna Enterprises Project 6" },
-  { src: g7, alt: "Sanrachna Enterprises Project 7" },
-  { src: g8, alt: "Sanrachna Enterprises Project 8" },
-  { src: g9, alt: "Sanrachna Enterprises Project 9" },
-  { src: g10, alt: "Sanrachna Enterprises Project 10" },
-  { src: g11, alt: "Sanrachna Enterprises Project 11" },
-  { src: g12, alt: "Sanrachna Enterprises Project 12" },
+  { src: img1, alt: "Sanrachana Project 1" },
+  { src: img2, alt: "Sanrachana Project 2" },
+  { src: img3, alt: "Sanrachana Project 3" },
+  { src: img4, alt: "Sanrachana Project 4" },
+  { src: img5, alt: "Sanrachana Project 5" },
+  { src: img6, alt: "Sanrachana Project 6" },
+  { src: img7, alt: "Sanrachana Project 7" },
+  { src: g1, alt: "Sanrachana Project 8" },
+  { src: g2, alt: "Sanrachana Project 9" },
+  { src: g3, alt: "Sanrachana Project 10" },
+  { src: g4, alt: "Sanrachana Project 11" },
+  { src: g5, alt: "Sanrachana Project 12" },
+  { src: g6, alt: "Sanrachana Project 13" },
+  { src: g7, alt: "Sanrachana Project 14" },
+  { src: g8, alt: "Sanrachana Project 15" },
+  { src: g9, alt: "Sanrachana Project 16" },
+  { src: g10, alt: "Sanrachana Project 17" },
+  { src: g11, alt: "Sanrachana Project 18" },
+  { src: g12, alt: "Sanrachana Project 19" },
 ];
 
 const FeaturedProjects = () => {

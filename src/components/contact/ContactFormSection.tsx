@@ -1,49 +1,123 @@
 import { useState } from "react";
-import { Phone, Mail, Clock, MapPin, Send } from "lucide-react";
+import { Phone, Mail, Clock, MapPin, Send, CheckCircle2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import LoadingButton from "@/components/ui/LoadingButton";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { supabase } from "@/integrations/supabase/client";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
+
+const formSchema = z.object({
+  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
+  email: z.string().email({ message: "Please enter a valid email address." }),
+  phone: z.string().min(10, { message: "Please enter a valid phone number." }),
+  address: z.string().optional(),
+  message: z.string().min(10, { message: "Message must be at least 10 characters." }),
+});
+
+type FormValues = z.infer<typeof formSchema>;
 
 const ContactFormSection = () => {
   const { toast } = useToast();
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    address: "",
-    message: "",
-  });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for contacting us. We'll get back to you soon.",
-    });
-
-    setFormData({
+  const form = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
       name: "",
       email: "",
       phone: "",
       address: "",
       message: "",
-    });
-    setIsSubmitting(false);
+    },
+  });
+
+  const onSubmit = async (values: FormValues) => {
+    setIsSubmitting(true);
+    let submissionId: string | null = null;
+    
+    try {
+      // 1. Save to Supabase (Database) first
+      const { data: supabaseData, error: supabaseError } = await supabase
+        .from("contact_submissions")
+        .insert([
+          {
+            name: values.name,
+            email: values.email,
+            phone: values.phone,
+            address: values.address || null,
+            message: values.message,
+            email_sent: false, // Initially false
+          },
+        ])
+        .select("id")
+        .single();
+
+      if (supabaseError) throw supabaseError;
+      submissionId = supabaseData?.id;
+
+      // 2. Try to Send Email via Web3Forms (Notification)
+      const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+      
+      if (accessKey && accessKey !== "your_web3forms_key_here") {
+        const response = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            access_key: accessKey,
+            subject: `New Inquiry from ${values.name} (Sanrachana)`,
+            from_name: "Sanrachana Website Inquiry",
+            ...values,
+          }),
+        });
+
+        const result = await response.json();
+
+        // 3. If email sent successfully, update Supabase record to mark it
+        if (result.success && submissionId) {
+          await supabase
+            .from("contact_submissions")
+            .update({ email_sent: true })
+            .eq("id", submissionId);
+        } else {
+          console.warn("Web3Forms Email Failed (likely quota hit). Message is saved in Supabase.");
+        }
+      }
+
+      toast({
+        title: "Message Sent Successfully!",
+        description: "We have received your message and will get back to you shortly.",
+      });
+
+      setIsSuccess(true);
+      form.reset();
+      
+      // Reset success state after 10 seconds or when user clicks button
+      setTimeout(() => setIsSuccess(false), 10000);
+    } catch (error) {
+      console.error("Submission Error:", error);
+      toast({
+        variant: "destructive",
+        title: "Error Sending Message",
+        description: "Something went wrong. Please try again or call us directly.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactInfo = [
@@ -88,7 +162,7 @@ const ContactFormSection = () => {
         </ScrollReveal>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Left Column - Contact Info */}
+          {/* Left Column - Contact Info ... (lines 100-120 unchanged) */}
           <ScrollReveal animation="fade-right">
             <div>
               <span className="text-primary font-semibold text-sm uppercase tracking-wider">
@@ -127,79 +201,128 @@ const ContactFormSection = () => {
 
           {/* Right Column - Contact Form */}
           <ScrollReveal animation="fade-left">
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <Input
-                    type="text"
-                    name="name"
-                    placeholder="Your Name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="border-border bg-card"
-                  />
+            {isSuccess ? (
+              <div className="bg-card border border-primary/20 rounded-lg p-12 text-center flex flex-col items-center justify-center h-full animate-in fade-in zoom-in duration-500">
+                <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+                  <CheckCircle2 className="w-10 h-10 text-primary" />
                 </div>
-                <div>
-                  <Input
-                    type="email"
-                    name="email"
-                    placeholder="Your Email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="border-border bg-card"
-                  />
-                </div>
+                <h3 className="text-2xl font-bold text-foreground mb-2">Message Received!</h3>
+                <p className="text-muted-foreground">
+                  Thank you for reaching out. A member of our team at Sanrachana will 
+                  get back to you within 24 hours.
+                </p>
+                <LoadingButton 
+                  variant="outline" 
+                  className="mt-8"
+                  onClick={() => setIsSuccess(false)}
+                >
+                  Send Another Message
+                </LoadingButton>
               </div>
+            ) : (
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <FormField
+                      control={form.control}
+                      name="name"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Input
+                              placeholder="Your Name"
+                              {...field}
+                              className="border-border bg-card"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Input
+                              placeholder="Your Email"
+                              {...field}
+                              className="border-border bg-card"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <Input
-                    type="tel"
-                    name="phone"
-                    placeholder="Your Contact Number"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    required
-                    className="border-border bg-card"
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <FormField
+                      control={form.control}
+                      name="phone"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Input
+                              placeholder="Your Contact Number"
+                              {...field}
+                              className="border-border bg-card"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="address"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Input
+                              placeholder="Your Address"
+                              {...field}
+                              className="border-border bg-card"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  <FormField
+                    control={form.control}
+                    name="message"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Textarea
+                            placeholder="Your Message"
+                            {...field}
+                            rows={5}
+                            className="border-border bg-card resize-none"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                </div>
-                <div>
-                  <Input
-                    type="text"
-                    name="address"
-                    placeholder="Your Address"
-                    value={formData.address}
-                    onChange={handleChange}
-                    className="border-border bg-card"
-                  />
-                </div>
-              </div>
 
-              <div>
-                <Textarea
-                  name="message"
-                  placeholder="Your Message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows={5}
-                  className="border-border bg-card resize-none"
-                />
-              </div>
-
-              <LoadingButton
-                type="submit"
-                size="lg"
-                isLoading={isSubmitting}
-                loadingText="Building..."
-                className="w-full md:w-auto"
-              >
-                <Send className="w-4 h-4 mr-2" />
-                Send Message
-              </LoadingButton>
-            </form>
+                  <LoadingButton
+                    type="submit"
+                    size="lg"
+                    isLoading={isSubmitting}
+                    loadingText="Sending..."
+                    className="w-full md:w-auto"
+                  >
+                    <Send className="w-4 h-4 mr-2" />
+                    Send Message
+                  </LoadingButton>
+                </form>
+              </Form>
+            )}
           </ScrollReveal>
         </div>
       </div>

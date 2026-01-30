@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin } from "lucide-react";
-import sanrachnaLogo from "@/assets/sanrachna-logo.jpg";
+import sanrachanaLogo from "@/assets/sanrachana-logo.jpg";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -12,10 +12,10 @@ const Footer = () => {
           {/* Company Info */}
           <div className="space-y-4">
             <Link to="/" className="flex items-center gap-2">
-              <img src={sanrachnaLogo} alt="Sanrachna Enterprises Logo" className="w-10 h-10 aspect-square object-contain" />
+              <img src={sanrachanaLogo} alt="Sanrachana Logo" className="w-10 h-10 aspect-square object-contain" />
               <div className="flex flex-col">
-                <span className="text-lg font-bold text-foreground tracking-tight">
-                  Sanrachna Enterprises
+                <span className="text-xl font-bold text-foreground tracking-tight">
+                  Sanrachana
                 </span>
                 <span className="text-[10px] text-muted-foreground uppercase tracking-widest font-semibold leading-tight">
                   Civil Engineering & <br />Industrial Contractors
@@ -83,7 +83,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-muted-foreground text-sm">
-            © {currentYear} Sanrachna Enterprises. All rights reserved.
+            © {currentYear} Sanrachana. All rights reserved.
           </p>
           <div className="flex gap-6">
             <span className="text-muted-foreground text-sm">Licensed & Insured</span>

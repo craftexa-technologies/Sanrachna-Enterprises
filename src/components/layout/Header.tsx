@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
-import sanrachnaLogo from "@/assets/sanrachna-logo.jpg";
+import sanrachanaLogo from "@/assets/sanrachana-logo.jpg";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -61,10 +61,10 @@ const Header = () => {
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
-            <img src={sanrachnaLogo} alt="Sanrachna Enterprises Logo" className="w-10 h-10 aspect-square object-contain" />
+            <img src={sanrachanaLogo} alt="Sanrachana Logo" className="w-10 h-10 aspect-square object-contain" />
             <div className="flex flex-col">
-              <span className="text-lg font-bold text-foreground tracking-tight">
-                Sanrachna Enterprises
+              <span className="text-xl font-bold text-foreground tracking-tight">
+                Sanrachana
               </span>
               <span className="text-[10px] md:text-[8px] lg:text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">
                 Civil Engineering & Industrial Contractors

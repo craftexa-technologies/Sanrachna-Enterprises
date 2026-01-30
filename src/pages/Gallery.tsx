@@ -14,19 +14,35 @@ import g10 from "@/assets/gallery/g10.jpg";
 import g11 from "@/assets/gallery/g11.jpg";
 import g12 from "@/assets/gallery/g12.jpg";
 
+// New gallery images from 1-7 folder
+import img1 from "@/assets/gallery/1-7/one.jpeg";
+import img2 from "@/assets/gallery/1-7/two.jpeg";
+import img3 from "@/assets/gallery/1-7/three.jpeg";
+import img4 from "@/assets/gallery/1-7/four.jpeg";
+import img5 from "@/assets/gallery/1-7/five.jpeg";
+import img6 from "@/assets/gallery/1-7/six.jpeg";
+import img7 from "@/assets/gallery/1-7/seven.jpeg";
+
 const galleryImages = [
-  { src: g1, alt: "Project 1", category: "Residential" },
-  { src: g2, alt: "Project 2", category: "Commercial" },
-  { src: g3, alt: "Project 3", category: "Industrial" },
-  { src: g4, alt: "Project 4", category: "Infrastructure" },
-  { src: g5, alt: "Project 5", category: "Residential" },
-  { src: g6, alt: "Project 6", category: "Commercial" },
-  { src: g7, alt: "Project 7", category: "Industrial" },
-  { src: g8, alt: "Project 8", category: "Infrastructure" },
-  { src: g9, alt: "Project 9", category: "Residential" },
-  { src: g10, alt: "Project 10", category: "Commercial" },
-  { src: g11, alt: "Project 11", category: "Industrial" },
-  { src: g12, alt: "Project 12", category: "Infrastructure" },
+  { src: img1, alt: "Project 1", category: "Industrial" },
+  { src: img2, alt: "Project 2", category: "Commercial" },
+  { src: img3, alt: "Project 3", category: "Residential" },
+  { src: img4, alt: "Project 4", category: "Industrial" },
+  { src: img5, alt: "Project 5", category: "Commercial" },
+  { src: img6, alt: "Project 6", category: "Residential" },
+  { src: img7, alt: "Project 7", category: "Industrial" },
+  { src: g1, alt: "Project 8", category: "Residential" },
+  { src: g2, alt: "Project 9", category: "Commercial" },
+  { src: g3, alt: "Project 10", category: "Industrial" },
+  { src: g4, alt: "Project 11", category: "Infrastructure" },
+  { src: g5, alt: "Project 12", category: "Residential" },
+  { src: g6, alt: "Project 13", category: "Commercial" },
+  { src: g7, alt: "Project 14", category: "Industrial" },
+  { src: g8, alt: "Project 15", category: "Infrastructure" },
+  { src: g9, alt: "Project 16", category: "Residential" },
+  { src: g10, alt: "Project 17", category: "Commercial" },
+  { src: g11, alt: "Project 18", category: "Industrial" },
+  { src: g12, alt: "Project 19", category: "Infrastructure" },
 ];
 
 const Gallery = () => {

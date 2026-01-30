@@ -36,6 +36,15 @@ import g10 from "@/assets/gallery/g10.jpg";
 import g11 from "@/assets/gallery/g11.jpg";
 import g12 from "@/assets/gallery/g12.jpg";
 
+// New gallery images
+import img1 from "@/assets/gallery/1-7/one.jpeg";
+import img2 from "@/assets/gallery/1-7/two.jpeg";
+import img3 from "@/assets/gallery/1-7/three.jpeg";
+import img4 from "@/assets/gallery/1-7/four.jpeg";
+import img5 from "@/assets/gallery/1-7/five.jpeg";
+import img6 from "@/assets/gallery/1-7/six.jpeg";
+import img7 from "@/assets/gallery/1-7/seven.jpeg";
+
 const services = [
   {
     icon: Wrench,
@@ -75,6 +84,13 @@ const services = [
 ];
 
 const galleryImages = [
+  { src: img1 },
+  { src: img2 },
+  { src: img3 },
+  { src: img4 },
+  { src: img5 },
+  { src: img6 },
+  { src: img7 },
   { src: g1 },
   { src: g2 },
   { src: g3 },
