@@ -31,16 +31,16 @@ async function testInsert() {
                 phone: "1234567890", 
                 message: "This is a test message to verify the Supabase connection." 
             }
-        ])
-        .select();
+        ]);
 
     if (error) {
         console.error("Error inserting data:", error.message);
-        console.log("\nTIP: Make sure you have created the 'contact_submissions' table in your Supabase SQL Editor using the schema.sql file!");
+        if (error.message.includes("row-level security")) {
+            console.log("\nTIP: Your INSERT policy exists, but you might need a SELECT policy if you use .select(), or check if RLS is correctly applied to 'public.contact_submissions'.");
+        }
     } else {
-        console.log("SUCCESS! Test data sent successfully.");
+        console.log("SUCCESS! Test data sent successfully (Table exists and RLS allows insertion).");
         console.log("Check your Supabase Table 'contact_submissions' to see the record.");
-        console.log("Data inserted:", data);
     }
 }
 

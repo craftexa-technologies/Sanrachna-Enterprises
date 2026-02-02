@@ -49,53 +49,72 @@ const ContactFormSection = () => {
     
     try {
       // 1. Save to Supabase (Database) first
-      const { data: supabaseData, error: supabaseError } = await supabase
-        .from("contact_submissions")
-        .insert([
-          {
-            name: values.name,
-            email: values.email,
-            phone: values.phone,
-            address: values.address || null,
-            message: values.message,
-            email_sent: false, // Initially false
-          },
-        ])
+      const { data: supabaseData, error: supabaseError } = await (supabase
+        .from("contact_submissions" as any)
+        .insert({
+          name: values.name,
+          email: values.email,
+          phone: values.phone,
+          address: values.address || null,
+          message: values.message,
+          email_sent: false, // Initially false
+        } as any)
         .select("id")
-        .single();
+        .single() as any);
 
       if (supabaseError) throw supabaseError;
-      submissionId = supabaseData?.id;
+      if (!supabaseData) throw new Error("No data returned from Supabase");
+      submissionId = (supabaseData as any).id;
 
-      // 2. Try to Send Email via Web3Forms (Notification)
-      const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
-      
-      if (accessKey && accessKey !== "your_web3forms_key_here") {
-        const response = await fetch("https://api.web3forms.com/submit", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify({
-            access_key: accessKey,
+      // 2. Try to Send Email via the Supabase Edge Function (Notification)
+      try {
+        console.log("Invoking edge function for email notification...");
+        const { data: functionData, error: functionError } = await supabase.functions.invoke("web3forms", {
+          body: {
             subject: `New Inquiry from ${values.name} (Sanrachana)`,
             from_name: "Sanrachana Website Inquiry",
             ...values,
-          }),
+          },
         });
 
-        const result = await response.json();
+        console.log("Edge function result:", { functionData, functionError });
 
-        // 3. If email sent successfully, update Supabase record to mark it
-        if (result.success && submissionId) {
-          await supabase
-            .from("contact_submissions")
-            .update({ email_sent: true })
-            .eq("id", submissionId);
+        if (functionError) {
+          console.error("Email edge function failed", functionError);
+          toast({
+            variant: "destructive",
+            title: "Notification not delivered",
+            description: `Email notification failed: ${functionError.message}. Message is saved in Supabase.`,
+          });
+        } else if (functionData && (functionData.success === true || functionData.ok === true)) {
+          console.log("Email reported success, updating database row...");
+          if (submissionId) {
+            const { error: updateError } = await (supabase as any)
+              .from("contact_submissions")
+              .update({ email_sent: true })
+              .eq("id", submissionId);
+            
+            if (updateError) {
+              console.error("Failed to update email_sent status:", updateError);
+            } else {
+              console.log("Database row updated: email_sent = true");
+            }
+          }
         } else {
-          console.warn("Web3Forms Email Failed (likely quota hit). Message is saved in Supabase.");
+          console.error("Email edge function returned unexpected data:", functionData);
+          toast({
+            variant: "destructive",
+            title: "Notification status unknown",
+            description: "Check function logs for details. Message is saved in Supabase.",
+          });
         }
+      } catch (err) {
+        console.error("Email edge function network/error:", err);
+        toast({
+          variant: "destructive",
+          title: "Notification error",
+          description: "Could not reach the email function — message stored in Supabase.",
+        });
       }
 
       toast({
