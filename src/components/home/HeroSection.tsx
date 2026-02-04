@@ -63,7 +63,7 @@ const HeroSection = () => {
           <ScrollReveal animation="fade-up">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-6">
               <Shield className="w-4 h-4 text-primary" />
-              <span className="text-sm text-primary font-medium">Licensed & Insured - Sanrachana</span>
+              <span className="text-sm text-primary font-medium">Licensed & Insured - Sanrachana Enterprises</span>
             </div>
           </ScrollReveal>
 

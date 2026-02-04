@@ -15,7 +15,7 @@ const Footer = () => {
               <img src={sanrachanaLogo} alt="Sanrachana Logo" className="w-10 h-10 aspect-square object-contain" />
               <div className="flex flex-col">
                 <span className="text-xl font-bold text-foreground tracking-tight">
-                  Sanrachana
+                  Sanrachana Enterprises
                 </span>
                 <span className="text-[10px] text-muted-foreground uppercase tracking-widest font-semibold leading-tight">
                   Civil Engineering & <br />Industrial Contractors
@@ -83,7 +83,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-muted-foreground text-sm">
-            © {currentYear} Sanrachana. All rights reserved.
+            © {currentYear} Sanrachana Enterprises. All rights reserved.
           </p>
           <div className="flex gap-6">
             <span className="text-muted-foreground text-sm">Licensed & Insured</span>

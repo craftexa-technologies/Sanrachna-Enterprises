@@ -55,7 +55,7 @@ const About = () => {
               Building Stronger Communities & High-Quality Urban Lives
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Sanrachana has been transforming visions into reality for nearly three decades. 
+              Sanrachana Enterprises has been transforming visions into reality for nearly three decades. 
               We specialize in Machine Foundation work while providing comprehensive construction services 
               for Industrial, Commercial, and Residential projects.
             </p>
@@ -159,7 +159,7 @@ const About = () => {
             <div>
               <ScrollReveal animation="fade-up">
               <span className="text-primary font-semibold text-sm uppercase tracking-wider">
-                Why Sanrachana
+                Why Sanrachana Enterprises
               </span>
                 <h2 className="text-3xl md:text-4xl font-bold text-foreground mt-2 mb-6">
                   Why Choose Us?

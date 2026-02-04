@@ -64,7 +64,7 @@ const Header = () => {
             <img src={sanrachanaLogo} alt="Sanrachana Logo" className="w-10 h-10 aspect-square object-contain" />
             <div className="flex flex-col">
               <span className="text-xl font-bold text-foreground tracking-tight">
-                Sanrachana
+                Sanrachana Enterprises
               </span>
               <span className="text-[10px] md:text-[8px] lg:text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">
                 Civil Engineering & Industrial Contractors
