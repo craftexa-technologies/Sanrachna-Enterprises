@@ -36,7 +36,7 @@ async function sendWithNodemailer(formData: any) {
   // @ts-ignore: Deno
   const pass = Deno.env.get('SMTP_PASS');
   // @ts-ignore: Deno
-  const receiverEmail = Deno.env.get('CONTACT_RECEIVER_EMAIL');
+  const receiverEmail = Deno.env.get('CONTACT_RECEIVER_EMAIL') || 'nssanrachana@gmail.com';
   
   console.log(`Attempting connection to ${host}:${port} as ${user}...`);
 
