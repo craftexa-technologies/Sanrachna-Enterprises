@@ -12,6 +12,12 @@ import machineFoundationImg from "@/assets/services/machine-foundation.jpg";
 
 const services = [
   {
+    icon: Cog,
+    title: "Machine Foundation",
+    description: "Specialized expertise in machine foundation construction for heavy machinery.",
+    image: machineFoundationImg,
+  },
+  {
     icon: Wrench,
     title: "All Types of Construction",
     description: "Comprehensive construction services for projects of any scale.",
@@ -34,12 +40,6 @@ const services = [
     title: "Industrial Construction",
     description: "Robust industrial construction solutions built to handle demanding operations.",
     image: industrialImg,
-  },
-  {
-    icon: Cog,
-    title: "Machine Foundation",
-    description: "Specialized expertise in machine foundation construction for heavy machinery.",
-    image: machineFoundationImg,
   },
 ];
 

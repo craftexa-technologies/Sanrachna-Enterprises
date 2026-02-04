@@ -53,10 +53,10 @@ const Footer = () => {
           <div>
             <h4 className="text-foreground font-semibold mb-4">Our Services</h4>
             <nav className="flex flex-col gap-2">
+              <span className="text-muted-foreground text-sm">Machine Foundation</span>
               <span className="text-muted-foreground text-sm">All Types of Construction</span>
               <span className="text-muted-foreground text-sm">Residential Construction</span>
               <span className="text-muted-foreground text-sm">Commercial Construction</span>
-              <span className="text-muted-foreground text-sm">Machine Foundation</span>
             </nav>
           </div>
 

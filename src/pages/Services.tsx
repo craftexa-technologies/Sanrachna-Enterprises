@@ -47,6 +47,13 @@ import img7 from "@/assets/gallery/1-7/seven.jpeg";
 
 const services = [
   {
+    icon: Cog,
+    title: "Machine Foundation",
+    description: "Specialized expertise in machine foundation construction. We ensure precise alignment, vibration control, and long-term stability for heavy machinery.",
+    features: ["Heavy machinery foundations", "Vibration isolation", "Precision alignment", "Load-bearing structures"],
+    image: machineFoundationImg,
+  },
+  {
     icon: Wrench,
     title: "All Types of Construction",
     description: "Comprehensive construction services for projects of any scale. From planning to completion, we deliver quality work that stands the test of time.",
@@ -73,13 +80,6 @@ const services = [
     description: "Robust industrial construction solutions built to handle demanding operations. Safety and durability are our top priorities.",
     features: ["Manufacturing plants", "Industrial sheds", "Storage facilities", "Processing units"],
     image: industrialImg,
-  },
-  {
-    icon: Cog,
-    title: "Machine Foundation",
-    description: "Specialized expertise in machine foundation construction. We ensure precise alignment, vibration control, and long-term stability for heavy machinery.",
-    features: ["Heavy machinery foundations", "Vibration isolation", "Precision alignment", "Load-bearing structures"],
-    image: machineFoundationImg,
   },
 ];
 
